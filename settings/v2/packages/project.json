@@ -30,5 +30,20 @@
       }
     ],
     "increaseId": 2
+  },
+  "physics": {
+    "gravity": {
+      "y": 0
+    },
+    "collisionGroups": [
+      {
+        "index": 2,
+        "name": "GameObject"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 4,
+      "2": 5
+    }
   }
 }

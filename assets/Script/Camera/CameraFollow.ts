@@ -7,7 +7,7 @@ export class CameraFollow extends Component {
     target: Node = null;
 
     @property
-    offset: Vec3 = new Vec3(0, 0, 0);
+    offset: Vec3 = new Vec3(0, 0, 10);
 
     update(deltaTime: number) {
         if (this.target) {
@@ -15,7 +15,7 @@ export class CameraFollow extends Component {
             this.node.setPosition(
                 targetPos.x + this.offset.x,
                 this.node.position.y,
-                this.node.position.z 
+                this.node.position.z
             );
         }
     }
