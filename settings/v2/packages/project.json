@@ -1,0 +1,34 @@
+{
+  "__version__": "1.0.6",
+  "custom_joint_texture_layouts": [],
+  "layer": [
+    {
+      "name": "BackGround",
+      "value": 1
+    },
+    {
+      "name": "GameObject",
+      "value": 2
+    }
+  ],
+  "sorting-layer": {
+    "layers": [
+      {
+        "id": 0,
+        "name": "default",
+        "value": 0
+      },
+      {
+        "id": 1,
+        "name": "BackGroud",
+        "value": 1
+      },
+      {
+        "id": 2,
+        "name": "GameObject",
+        "value": 2
+      }
+    ],
+    "increaseId": 2
+  }
+}
