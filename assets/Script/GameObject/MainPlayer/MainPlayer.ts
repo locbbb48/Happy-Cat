@@ -1,5 +1,4 @@
 import { _decorator, Component, EventTouch, input, Input, Vec3, tween, BoxCollider2D, IPhysics2DContact, RigidBody2D, director } from 'cc';
-import { GameObjectBase } from '../GameObjectBase';
 import { GameEvent, PLAYER_DEAD } from '../../MainGameManager/GameEvent';
 const { ccclass, property } = _decorator;
 
