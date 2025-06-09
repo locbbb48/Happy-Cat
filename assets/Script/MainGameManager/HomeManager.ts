@@ -4,7 +4,7 @@ const { ccclass } = _decorator;
 @ccclass('HomeManager')
 export class HomeManager extends Component {
     public loadPrototypeScene() {
-        director.loadScene('PrototypeScene', () => {
+        director.loadScene('Prototype', () => {
         });
     }
 }

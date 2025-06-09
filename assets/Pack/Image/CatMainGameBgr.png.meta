@@ -54,7 +54,7 @@
         "borderLeft": 0,
         "borderRight": 0,
         "packable": true,
-        "pixelsToUnit": 100,
+        "pixelsToUnit": 1,
         "pivotX": 0.5,
         "pivotY": 0.5,
         "meshType": 0,

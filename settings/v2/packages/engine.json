@@ -57,7 +57,7 @@
             "_value": false
           },
           "physics": {
-            "_value": false,
+            "_value": true,
             "_option": "physics-ammo"
           },
           "physics-ammo": {
@@ -187,6 +187,10 @@
             "_value": false
           }
         },
+        "flags": {
+          "LOAD_SPINE_MANUALLY": false,
+          "LOAD_BULLET_MANUALLY": false
+        },
         "includeModules": [
           "2d",
           "affine-transform",
@@ -202,6 +206,7 @@
           "mask",
           "particle-2d",
           "physics-2d-box2d",
+          "physics-ammo",
           "profiler",
           "rich-text",
           "spine-3.8",
@@ -214,8 +219,7 @@
         "noDeprecatedFeatures": {
           "value": false,
           "version": ""
-        },
-        "flags": {}
+        }
       }
     },
     "globalConfigKey": "defaultConfig"
