@@ -1,4 +1,4 @@
-import { _decorator, Component, Prefab, Node, instantiate, Vec3, director } from 'cc';
+import { _decorator, Component, Prefab, Node, instantiate, Vec3, director, RichText } from 'cc';
 import { GameEvent, PLAYER_DEAD } from './GameEvent';
 const { ccclass, property } = _decorator;
 
@@ -6,6 +6,12 @@ const { ccclass, property } = _decorator;
 export class GameManager extends Component {
     @property(Node)
     deadRichText: Node = null!;
+
+    @property(Node)
+    score: Node = null!;
+
+    @property
+    scoreValue: number = 0;
 
     @property(Prefab)
     bgrPrefab: Prefab = null!;
@@ -22,37 +28,61 @@ export class GameManager extends Component {
     private bgrCount: number = 3;
 
     @property(Prefab)
-    cactusUpPrefab: Prefab = null!;
+    pipePrefab: Prefab = null!;
 
-    @property(Prefab)
-    cactusDownPrefab: Prefab = null!;
 
     @property
-    cactusMinX: number = -960;
+    pipeMinX: number = -960;
 
     @property
-    cactusMaxX: number = 960;
+    pipeMaxX: number = 960;
 
     @property
-    cactusPerBackground: number = 12;
+    pipeMinY: number = -110;
+
+    @property
+    pipeMaxY: number = 110;
+
+    @property
+    pipePerBackground: number = 3;
+
+    @property
+    pipePerBackgroundMax: number = 7;
 
     onLoad() {
-        this.scheduleOnce(() => {
-            for (let bgr of this.bgrQueue) {
-                this.initCactusOnBackground(bgr);
-            }
-        }, 0.1); // Đợi bgrQueue được fill sau start
         GameEvent.on(PLAYER_DEAD, this.onPlayerDead, this);
-
+        this.schedule(this.increasePipeCount, 10);
     }
 
-    start() {
+    onEnable() {
+        this.deadRichText.active = false;
+
+        this.score.getComponent(RichText)!.string = this.scoreValue.toString();
+
+        this.pipePerBackground = 3;
+
+        for (let bgr of this.bgrQueue) {
+            bgr.destroy();
+        }
+        this.bgrQueue = [];
+
         for (let i = 0; i < this.bgrCount; ++i) {
             const bgr = instantiate(this.bgrPrefab);
             bgr.setParent(this.node);
             bgr.setPosition(new Vec3(i * this.bgrWidth, 0, 0));
             this.bgrQueue.push(bgr);
         }
+        this.scheduleOnce(() => {
+            for (let bgr of this.bgrQueue) {
+                this.initPipeOnBackground(bgr);
+            }
+        }, 0.1);
+        this.schedule(this.increaseScore, 1);
+    }
+
+    increaseScore() {
+        this.scoreValue++;
+        this.score.getComponent(RichText)!.string = this.scoreValue.toString();
     }
 
     onPlayerDead(data: { reason: string, node: any }) {
@@ -71,28 +101,80 @@ export class GameManager extends Component {
         }, 300);
     }
 
-    initCactusOnBackground(background: Node) {
-        (background as any).cactusList = [];
-        for (let i = 0; i < this.cactusPerBackground; i++) {
-            const cactusType = Math.random() > 0.5 ? 'up' : 'down';
-            const prefab = cactusType === 'up' ? this.cactusUpPrefab : this.cactusDownPrefab;
-            const cactus = instantiate(prefab);
-            cactus.parent = background;
-            (background as any).cactusList.push(cactus);
+    increasePipeCount() {
+        if (this.pipePerBackground < this.pipePerBackgroundMax) {
+            this.pipePerBackground++;
+            console.log(`Increased pipePerBackground to ${this.pipePerBackground}`);
         }
-        this.resetCactusOnBackground(background);
     }
 
-    resetCactusOnBackground(background: Node) {
-        const cactusList = (background as any).cactusList as Node[];
-        if (!cactusList) return;
-        for (let cactus of cactusList) {
-            const randX = Math.random() * (this.cactusMaxX - this.cactusMinX) + this.cactusMinX;
-            const posy = cactus.position.y;
-            cactus.setPosition(new Vec3(randX, posy, 0));
-            cactus.active = true;
+    updatePipeOnBackground(background: Node) {
+        const pipeList = (background as any).pipeList as Node[] || [];
+
+        while (pipeList.length < this.pipePerBackground) {
+            const pipe = instantiate(this.pipePrefab);
+            pipe.parent = background;
+            pipeList.push(pipe);
+        }
+
+        for (let i = this.pipePerBackground; i < pipeList.length; i++) {
+            pipeList[i].active = false;
+        }
+
+        this.resetpipeOnBackground(background);
+    }
+
+    initPipeOnBackground(background: Node) {
+    let pipeList = (background as any).pipeList as Node[] || [];
+
+    for (let pipe of pipeList) {
+        pipe.destroy();
+    }
+
+    pipeList = [];
+    (background as any).pipeList = pipeList;
+
+    for (let i = 0; i < this.pipePerBackground; i++) {
+        const pipe = instantiate(this.pipePrefab);
+        pipe.parent = background;
+        pipeList.push(pipe);
+    }
+
+    this.resetpipeOnBackground(background);
+}
+
+
+    resetpipeOnBackground(background: Node) {
+        const pipeList = (background as any).pipeList as Node[];
+        if (!pipeList) return;
+
+        const usedX: number[] = [];
+
+        // Kiểm tra nếu là background đầu tiên
+        const isFirstBgr = background === this.bgrQueue[0];
+        const pipeMinX = isFirstBgr ? 100 : this.pipeMinX;
+
+        for (let pipe of pipeList) {
+            let randX = 0;
+            let tries = 0;
+            const maxTries = 200;
+
+            do {
+                randX = Math.random() * (this.pipeMaxX - pipeMinX) + pipeMinX;
+                tries++;
+            } while (
+                usedX.some(prevX => Math.abs(randX - prevX) < 200) &&
+                tries < maxTries
+            );
+
+            usedX.push(randX);
+
+            const randY = Math.random() * (this.pipeMaxY - this.pipeMinY) + this.pipeMinY;
+            pipe.setPosition(new Vec3(randX, randY, 0));
+            pipe.active = true;
         }
     }
+
 
     update(deltaTime: number) {
         if (!this.player) return;
@@ -106,7 +188,7 @@ export class GameManager extends Component {
             const lastBgr = this.bgrQueue[this.bgrQueue.length - 1];
             movedBgr.setPosition(new Vec3(lastBgr.position.x + this.bgrWidth, 0, 0));
             this.bgrQueue.push(movedBgr);
-            this.resetCactusOnBackground(movedBgr);
+            this.initPipeOnBackground(movedBgr);
         }
     }
 

@@ -9,6 +9,10 @@
     {
       "name": "GameObject",
       "value": 2
+    },
+    {
+      "name": "ground",
+      "value": 131072
     }
   ],
   "sorting-layer": {

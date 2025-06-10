@@ -48,8 +48,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 100,
-      "y": 100,
+      "x": 150,
+      "y": 125,
       "z": 1
     },
     "_mobility": 0,
@@ -82,7 +82,7 @@
     ],
     "_visFlags": 0,
     "_spriteFrame": {
-      "__uuid__": "0169a608-03aa-4a79-8ab7-97f49441043f@f9941",
+      "__uuid__": "8f4fabc8-4898-4e4b-b2eb-f800ae8382e2@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_mode": 0,
@@ -161,11 +161,11 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0.1
+      "y": 0
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 0.5,
+      "width": 0.3,
       "height": 2.5
     },
     "_id": ""
