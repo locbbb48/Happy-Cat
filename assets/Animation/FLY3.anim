@@ -1,17 +1,17 @@
 [
   {
     "__type__": "cc.AnimationClip",
-    "_name": "Fly",
+    "_name": "FLY3",
     "_objFlags": 0,
     "__editorExtras__": {
       "embeddedPlayerGroups": []
     },
     "_native": "",
-    "sample": 30,
-    "speed": 0.5,
+    "sample": 60,
+    "speed": 0.1,
     "wrapMode": 2,
     "enableTrsBlending": false,
-    "_duration": 0.16666666666666666,
+    "_duration": 0.03333333333333333,
     "_hash": 500763545,
     "_tracks": [
       {
@@ -62,35 +62,20 @@
     "__type__": "cc.ObjectCurve",
     "_times": [
       0,
-      0.03333333333333333,
-      0.06666666666666667,
-      0.1,
-      0.13333333333333333,
-      0.16666666666666666
+      0.016666666666666666,
+      0.03333333333333333
     ],
     "_values": [
       {
-        "__uuid__": "436bdd5c-654a-4bef-bfdb-2eab68aceadc@f9941",
+        "__uuid__": "a1360f1d-965f-4a42-858f-acbf896c5904@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "3ad3f694-1168-4e9e-af1c-3009f1f551f3@f9941",
+        "__uuid__": "ac12b07a-13bd-46ab-8af9-5a002534ac0e@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "a1b45e91-c556-4f27-a7c9-a48844e6ee1b@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "2267122a-cc0c-48c6-b5fb-f6b3d7b75fe6@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "7c2acbe8-b2ac-4bdb-922a-8d110ddd2895@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "81271803-9531-4f3a-b2d9-a9d7fa4f59a9@f9941",
+        "__uuid__": "d9e6e7bc-8388-466c-8757-17696cc2dce1@f9941",
         "__expectedType__": "cc.SpriteFrame"
       }
     ]
