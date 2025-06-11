@@ -1,4 +1,4 @@
-![Demo Idle](https://github.com/locbbb48/Happy-Cat/raw/main/assets/Pack/CatPackHalloweenFREE/CatPackHalloweenFREE/Idle/tile000.png)
+![Demo Idle](https://github.com/locbbb48/Happy-Cat/blob/main/assets/Pack/Image/CatMainGameBgr.png)
 
 Simple Flappy Bird, using Cocos Creator Engine, TypeScript
 
